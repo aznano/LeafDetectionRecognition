@@ -52,7 +52,7 @@ class YoloTrainConfig_t:
     bucket='', 
     cache_images=True, 
     cfg='', 
-    data='detection/dataset/data.yaml', 
+    data='detection/dataset/yolov5/data.yaml', 
     device='', 
     entity=None, 
     epochs=100, 
