@@ -61,6 +61,7 @@ def train_yolo():
 
 
     # Resume
+    print("Resume Train = ", opt.resume)
     wandb_run = check_wandb_resume(opt)
     if opt.resume and not wandb_run:  # resume an interrupted run
         ckpt = opt.resume if isinstance(opt.resume, str) else get_latest_run()  # specified or most recent path
