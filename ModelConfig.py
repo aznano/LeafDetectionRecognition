@@ -5,8 +5,6 @@ import torch
 input_path = "./input/"
 output_path = "./output/"
 is_colab = True # Change to False if run on physical computer
-only_train_yolo = False
-only_train_inception = False
 
 class InceptionConfig_t:
     # Dataset
