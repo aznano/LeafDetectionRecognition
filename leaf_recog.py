@@ -82,7 +82,10 @@ for boundingbox in list_boundingbox:
 
         # Processing leaf labels
         label = list(labels_dict.keys())[list(labels_dict.values()).index(np.argmax(leaf_labels_raw))]
-        name = list(species_dict.keys())[list(species_dict.values()).index(np.array(label))]
+        if species_dict is None:
+            name = ""
+        else:
+            name = list(species_dict.keys())[list(species_dict.values()).index(np.array(label))]
         print("Leaf Recognited: " + str(label) + " - " + str(name))
 
         # Show leaf information and show image
