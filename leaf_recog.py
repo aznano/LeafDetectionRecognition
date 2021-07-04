@@ -40,6 +40,8 @@ boundingbox = []
 print("Step 1. Prepare Model")
 detect_model = detectLeaf.loadModel_t()
 recog_model, labels_dict, species_dict = InceptionV3_t.loadModel_t()
+if species_dict is None:
+    print("Name of species is store in ./recognition/labels.csv")
 
 #---------------------------------------------------------------------------------------------------
 # 2. Prepare Data Input
