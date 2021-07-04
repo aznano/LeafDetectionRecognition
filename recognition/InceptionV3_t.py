@@ -130,10 +130,12 @@ def loadModel_t():
     labels_dict = dict(zip(labels_dict["index"], labels_dict["data"]))
 
     # Read species name
-    species_dict_df = pd.read_csv(ModelConfig.InceptionConfig_t.species_dict_csv, index_col=0)
-    species_dict = species_dict_df.to_dict("split")
-    species_dict = dict(zip(species_dict["index"], species_dict["data"]))
-    
+    if os.path.isfile(ModelConfig.InceptionConfig_t.species_dict_csv):
+        species_dict_df = pd.read_csv(ModelConfig.InceptionConfig_t.species_dict_csv, index_col=0)
+        species_dict = species_dict_df.to_dict("split")
+        species_dict = dict(zip(species_dict["index"], species_dict["data"]))
+    else:
+        species_dict = None
     return recog_model, labels_dict, species_dict
 def evaluate_t(model, visual=False):
     """
