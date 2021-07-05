@@ -62,20 +62,20 @@ def train_yolo():
 
     # Resume
     wandb_run = check_wandb_resume(opt)
-    if opt.resume and not wandb_run:  # resume an interrupted run
-        ckpt = opt.resume if isinstance(opt.resume, str) else get_latest_run()  # specified or most recent path
-        assert os.path.isfile(ckpt), 'ERROR: --resume checkpoint does not exist'
-        with open(Path(ckpt).parent.parent / 'opt.yaml') as f:
-            opt = argparse.Namespace(**yaml.safe_load(f))  # replace
-        opt.cfg, opt.weights, opt.resume = '', ckpt, True  # reinstate
-        logger.info('Resuming training from %s' % ckpt)
-    else:
+    # if opt.resume and not wandb_run:  # resume an interrupted run
+    #     ckpt = opt.resume if isinstance(opt.resume, str) else get_latest_run()  # specified or most recent path
+    #     assert os.path.isfile(ckpt), 'ERROR: --resume checkpoint does not exist'
+    #     with open(Path(ckpt).parent.parent / 'opt.yaml') as f:
+    #         opt = argparse.Namespace(**yaml.safe_load(f))  # replace
+    #     opt.cfg, opt.weights, opt.resume = '', ckpt, True  # reinstate
+    #     logger.info('Resuming training from %s' % ckpt)
+    # else:
         # opt.hyp = opt.hyp or ('hyp.finetune.yaml' if opt.weights else 'hyp.scratch.yaml')
-        opt.data, opt.cfg, opt.hyp = check_file(opt.data), check_file(opt.cfg), check_file(opt.hyp)  # check files
-        assert len(opt.cfg) or len(opt.weights), 'either --cfg or --weights must be specified'
-        opt.img_size.extend([opt.img_size[-1]] * (2 - len(opt.img_size)))  # extend to 2 sizes (train, test)
-        opt.name = 'evolve' if opt.evolve else opt.name
-        opt.save_dir = str(increment_path(Path(opt.project) / opt.name, exist_ok=opt.exist_ok | opt.evolve))
+    opt.data, opt.cfg, opt.hyp = check_file(opt.data), check_file(opt.cfg), check_file(opt.hyp)  # check files
+    assert len(opt.cfg) or len(opt.weights), 'either --cfg or --weights must be specified'
+    opt.img_size.extend([opt.img_size[-1]] * (2 - len(opt.img_size)))  # extend to 2 sizes (train, test)
+    opt.name = 'evolve' if opt.evolve else opt.name
+    opt.save_dir = str(increment_path(Path(opt.project) / opt.name, exist_ok=opt.exist_ok | opt.evolve))
 
     # DDP mode
     device = select_device(opt.device, batch_size=opt.batch_size)
